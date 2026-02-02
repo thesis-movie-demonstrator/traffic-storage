@@ -28,6 +28,16 @@ jobs:
         run: |
           curl -s ${{ secrets.WGTO_URL }} > data.json
           aws s3 cp data.json s3://${{ secrets.BUCKET_NAME }}/WGTO/$(date -u +%Y/%m/%d/%H%M).json
+
+      - name: Source 3
+        run: |
+          curl -s ${{ secrets.WGFI_URL }} > data.json
+          aws s3 cp data.json s3://${{ secrets.BUCKET_NAME }}/WGFI/$(date -u +%Y/%m/%d/%H%M).json
+
+      - name: Source 4
+        run: |
+          curl -s ${{ secrets.WGFO_URL }} > data.json
+          aws s3 cp data.json s3://${{ secrets.BUCKET_NAME }}/WGFO/$(date -u +%Y/%m/%d/%H%M).json
           
       - name: Source 5
         run: |
@@ -37,6 +47,3 @@ jobs:
          -H "KeyId: ${{ secrets.VIC_API_KEY }}" \
          | jq '.features | map(select(.properties.freewayName | contains("West Gate")))' > data.json
          aws s3 cp data.json s3://${{ secrets.BUCKET_NAME }}/govt/$(date -u +%Y/%m/%d/%H%M).json
-
-      
-      
