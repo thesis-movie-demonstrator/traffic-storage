@@ -31,12 +31,14 @@ jobs:
           
       - name: Source 5
         run: |
-         curl -s \ "${{ secrets.VIC_API_URL }}" \ 
+         curl -X "GET" \ 
+         "XXX" \ 
          -H "accept: application/json" \ 
-         -H "KeyId: ${{ secrets.VIC_API_KEY }}" \ 
+         -H "KeyId: XXX" \ 
+         
          # | jq '.features |= map(select((.properties.freewayName // "" | ascii_downcase) | contains("west gate")))' \ 
-         > west_gate.json
-         aws s3 cp west_gate.json s3://${{ secrets.BUCKET_NAME }}/govt/$(date -u +%Y/%m/%d/%H%M).json
+         # > west_gate.json
+         # aws s3 cp west_gate.json s3://${{ secrets.BUCKET_NAME }}/govt/$(date -u +%Y/%m/%d/%H%M).json
 
       
       
