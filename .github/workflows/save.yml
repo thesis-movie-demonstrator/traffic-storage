@@ -31,10 +31,10 @@ jobs:
           
       - name: Source 5
         run: |
-         curl -X "GET" \ 
-         "https://api.opendata.transport.vic.gov.au/opendata/roads/traffic/freeway-travel-time/v1/traffic" \ 
-         -H "accept: application/json" \ 
-         -H "KeyId: d490efd4-5236-45b5-b00d-a5c8dcc00015" \ 
+         curl -X "GET" \
+         "https://api.opendata.transport.vic.gov.au/opendata/roads/traffic/freeway-travel-time/v1/traffic" \
+         -H "accept: application/json" \
+         -H "KeyId: d490efd4-5236-45b5-b00d-a5c8dcc00015" \
          
          # | jq '.features |= map(select((.properties.freewayName // "" | ascii_downcase) | contains("west gate")))' \ 
          # > west_gate.json
