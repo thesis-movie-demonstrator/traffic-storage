@@ -35,8 +35,8 @@ jobs:
          "${{ secrets.VIC_API_URL }}" \
          -H "accept: application/json" \
          -H "KeyId: ${{ secrets.VIC_API_KEY }}" \
-         | jq '.features |= map(select((.properties.freewayName // "" | ascii_downcase) | contains("west gate")))' \ 
-         > west_gate.json
+         | jq 'keys' 
+         # > west_gate.json
          aws s3 cp west_gate.json s3://${{ secrets.BUCKET_NAME }}/govt/$(date -u +%Y/%m/%d/%H%M).json
 
       
