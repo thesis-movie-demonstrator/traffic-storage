@@ -32,13 +32,12 @@ jobs:
       - name: Source 5
         run: |
          curl -X "GET" \
-         "https://api.opendata.transport.vic.gov.au/opendata/roads/traffic/freeway-travel-time/v1/traffic" \
+         "${{ secrets.VIC_API_URL }}" \
          -H "accept: application/json" \
-         -H "KeyId: d490efd4-5236-45b5-b00d-a5c8dcc00015" \
-         
-         # | jq '.features |= map(select((.properties.freewayName // "" | ascii_downcase) | contains("west gate")))' \ 
-         # > west_gate.json
-         # aws s3 cp west_gate.json s3://${{ secrets.BUCKET_NAME }}/govt/$(date -u +%Y/%m/%d/%H%M).json
+         -H "KeyId: ${{ secrets.VIC_API_KEY }}" \
+         | jq '.features |= map(select((.properties.freewayName // "" | ascii_downcase) | contains("west gate")))' \ 
+         > west_gate.json
+         aws s3 cp west_gate.json s3://${{ secrets.BUCKET_NAME }}/govt/$(date -u +%Y/%m/%d/%H%M).json
 
       
       
