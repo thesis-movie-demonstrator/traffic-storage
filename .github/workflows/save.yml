@@ -28,5 +28,11 @@ jobs:
         run: |
           curl -s ${{ secrets.WGTO_URL }} > data.json
           aws s3 cp data.json s3://${{ secrets.BUCKET_NAME }}/WGTO/$(date -u +%Y/%m/%d/%H%M).json
+          
+      - name: Source 5
+        run: |
+         curl -X 'GET' \ '${{ secrets.VIC_API_URL }}' \ -H 'accept: application/json' \ -H 'KeyId: ${{ secrets.VIC_API_KEY }}' \ | jq '.features |= map(select((.properties.freewayName // "" | ascii_downcase) | contains("west gate")))' \ > west_gate.json
+         aws s3 cp data.json s3://${{ secrets.BUCKET_NAME }}/govt/$(date -u +%Y/%m/%d/%H%M).json
+
       
       
